@@ -10,7 +10,6 @@ const EXPIRE_DATE_IN_DAY = new Date(Date.now() + 60 * 60 * 1000 * 24); // 24 hou
 const app = express();
 
 app.use(session({
-    cookieName: 'sessionName',
     secret: 'dsfkasjdfsidfdfsdfsodfiuoidfif&*&#&',
     saveUninitialized: true,
     resave: false,
@@ -18,6 +17,7 @@ app.use(session({
     maxAge: EXPIRE_DATE_IN_DAY
     //secure: true, // only use cookie over https!
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 

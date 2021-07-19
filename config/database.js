@@ -17,7 +17,8 @@ export default function() {
     if(!arrayColletions.length) {
       seeds();
     }
-  })  
+  })
+    //seeds();
 });
 }
 
