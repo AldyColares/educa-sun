@@ -11,7 +11,6 @@ dotenvSafe.config();
 //require("dotenv-safe").config();
 const app = express();
 
-console.log(database);
 app.use(express.json());
 database();
 app.get('/clientes', (req, res, next) => { 
