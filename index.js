@@ -1,10 +1,16 @@
-const http = require('http'); 
-const express = require('express'); 
+//const http = require('http'); 
+import http from 'http';
+//const express = require('express'); 
+import express from 'express';
+//const database = require('./config/database');
+import database from './config/database.js';
+//const user = require('./router/user');
+import user from './router/user.js';
+import dotenvSafe from 'dotenv-safe';
+dotenvSafe.config();
+//require("dotenv-safe").config();
 const app = express();
-const database = require('./config/database');
-const user = require('./router/user');
-require("dotenv-safe").config();
- 
+
 console.log(database);
 app.use(express.json());
 database();

@@ -15,4 +15,4 @@ userController.login = function (req, res, next) {
   res.status(500).json({message: 'Login invalid!'});
 }
 
-module.exports = userController;
+export default userController;

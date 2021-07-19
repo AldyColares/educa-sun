@@ -1,6 +1,7 @@
-const user = require("../controller/user");
+//const user = require("../controller/user");
+import user from '../controller/user.js'
 
-module.exports = function (app) {
+export default function (app) {
   app.post('/login', user.login);
 
   app.get('/logout', user.logOut);
