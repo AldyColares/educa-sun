@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 const SALT_FACTOR = 10;
-
+import bcryptSalt from './bcryptSalt.js';
 /**
  * Encrypt the users password. 
  * 
@@ -11,8 +11,7 @@ const SALT_FACTOR = 10;
 const cryptPassword = function (password, cb) {
   bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
     if (err) return cb(err, null);
-
-    bcrypt.hash(password, salt, function (err, hashedPassword) {
+    bcrypt.hash(password, bcryptSalt, function (err, hashedPassword) {
       if (err) return cb(err, null);
 
       return cb(null, hashedPassword);
