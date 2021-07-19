@@ -1,24 +1,27 @@
-//const http = require('http'); 
 import http from 'http';
-//const express = require('express'); 
 import express from 'express';
-//const database = require('./config/database');
 import database from './config/database.js';
-//const user = require('./router/user');
 import user from './routes/user.js';
+import session from 'express-session';
 import dotenvSafe from 'dotenv-safe';
 dotenvSafe.config();
-//require("dotenv-safe").config();
+const EXPIRE_DATE_IN_DAY = new Date(Date.now() + 60 * 60 * 1000 * 24); // 24 hours
+
 const app = express();
 
+app.use(session({
+    cookieName: 'sessionName',
+    secret: 'dsfkasjdfsidfdfsdfsodfiuoidfif&*&#&',
+    saveUninitialized: true,
+    resave: false,
+    httpOnly: true,
+    maxAge: EXPIRE_DATE_IN_DAY
+    //secure: true, // only use cookie over https!
+}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 database();
-app.get('/clientes', (req, res, next) => { 
-    console.log("Retornou todos clientes!");
-    res.json([{id:1,nome:'luiz'}]);
-}) 
 
 user(app);
 const server = http.createServer(app); 
