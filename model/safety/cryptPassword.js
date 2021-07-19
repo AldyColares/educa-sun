@@ -9,13 +9,10 @@ import bcryptSalt from './bcryptSalt.js';
  */
 
 const cryptPassword = function (password, cb) {
-  bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
+  bcrypt.hash(password, bcryptSalt, function (err, hashedPassword) {
     if (err) return cb(err, null);
-    bcrypt.hash(password, bcryptSalt, function (err, hashedPassword) {
-      if (err) return cb(err, null);
 
-      return cb(null, hashedPassword);
-    });
+    return cb(null, hashedPassword);
   });
 }
 
