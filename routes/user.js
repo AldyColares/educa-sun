@@ -6,5 +6,5 @@ export default function (app) {
 
   app.get('/logout', user.logOut);
 
-  app.post('/register-student',verifyJWT ,user.registerStudent);
+  app.post('/registerstudent',verifyJWT ,user.registerStudent);
 }
