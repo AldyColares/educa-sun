@@ -1,11 +1,14 @@
 import secret from '../model/safety/secretJWT.js';
 import jwt from 'jsonwebtoken';
+import database from '../config/database2.js'
 
 let userController = {}
 const hourInSecunds = 3600;
-userController.login = function (req, res, next) {
-  
-  if(req.body.user === 'aldy' && req.body.password === '123'){
+userController.login = async function (req, res, next) {
+  const databaseObject = await database.connect();
+  const user = await databaseObject.collection("user").findOne({name: req.body.login});
+  console.log(user);
+  if(user.name === 'Roberto'){
     const id = 1; 
     const tokenCredential = jwt.sign({ id }, secret, {expiresIn: hourInSecunds});
     req.session.tokenCredential = tokenCredential;

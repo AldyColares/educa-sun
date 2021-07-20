@@ -5,8 +5,6 @@ import user from './routes/user.js';
 import session from 'express-session';
 import dotenvSafe from 'dotenv-safe';
 
-console.log(process.env.SECRET);
-
 const EXPIRE_DATE_IN_DAY = new Date(Date.now() + 60 * 60 * 1000 * 24); // 24 hours
 
 const app = express();

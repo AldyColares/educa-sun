@@ -6,11 +6,11 @@ export default function () {
     console.log("Collection user created!");
     databaseObject.collection("user").insertMany([
       { name: "roberto", password: "$2b$10$Cdke1aU38D1azg4ay/TKAOhwsX/PphxGyCxmhGJw1HaFzLAJhOuFC", 
-        registration: "5", age: 32, role: "professor" },
+        matriculation: "5", age: 32, role: "professor" },
       { name: "carlos", password: "$2b$10$Cdke1aU38D1azg4ay/TKAOhwsX/PphxGyCxmhGJw1HaFzLAJhOuFC", 
-        registration: "2541", age: 13, role: "studant" },
+        matriculation: "2541", age: 13, role: "studant" },
       { name: "pedro", password: "$2b$10$Cdke1aU38D1azg4ay/TKAOhwsX/PphxGyCxmhGJw1HaFzLAJhOuFC", 
-        registration: "2566", age: 12, role: "studant", }
+        matriculation: "2566", age: 12, role: "studant", }
     ]);
   });
 

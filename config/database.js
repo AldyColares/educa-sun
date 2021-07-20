@@ -2,7 +2,8 @@ import seeds from '../utils/seeds.js'
 import mongodb, { MongoClient } from 'mongodb';
 //const url = process.env.URIMOONGODB;
 const url = 'mongodb://localhost:27017/';
-export default function() {
+export default async function() {
+
   MongoClient.connect(url, function (err, client) {
   if (err) throw err;
   let databaseObject = client.db("educaSun");
@@ -14,6 +15,7 @@ export default function() {
     }
   })
     //seeds();
+    return databaseObject; 
 });
 }
 
