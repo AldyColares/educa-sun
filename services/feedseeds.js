@@ -1,12 +1,8 @@
 import seeds from '../utils/seeds.js'
-import { MongoClient } from 'mongodb';
-//const url = process.env.URIMOONGODB;
-const url = 'mongodb://localhost:27017/';
-export default async function() {
+import database from './conectdatabase.js';
 
-  MongoClient.connect(url, function (err, client) {
-  if (err) throw err;
-  let databaseObject = client.db("educaSun");
+export default async function() {
+  const databaseObject = await database.connect();
   global.educaSunDB = databaseObject;
   databaseObject.listCollections().toArray()
   .then(arrayColletions => {
@@ -14,6 +10,5 @@ export default async function() {
       seeds();
     }
   })
-});
 }
 
