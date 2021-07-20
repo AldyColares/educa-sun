@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import secret from './secretJWT.js';
+import secret from '../safety/secretJWT.js';
 
 export default function (req, res, next) {
   const token = req.session.tokenCredential;

@@ -1,6 +1,6 @@
 import http from 'http';
 import express from 'express';
-import database from './config/database.js';
+import feedseeds from './services/feedseeds.js';
 import user from './routes/user.js';
 import session from 'express-session';
 import dotenvSafe from 'dotenv-safe';
@@ -11,8 +11,8 @@ const app = express();
 
 app.use(session({
     secret: 'dsfkasjdfsidfdfsdfsodfiuoidfif&*&#&',
-    saveUninitialized: false,
-    resave: false,
+    saveUninitialized: true,
+    resave: true,
     cookie: {
         maxAge: EXPIRE_DATE_IN_DAY,
         secure: false, // only use cookie over https!
@@ -22,7 +22,7 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-database();
+feedseeds();
 
 user(app);
 const server = http.createServer(app);

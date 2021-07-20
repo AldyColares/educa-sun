@@ -14,13 +14,16 @@ export default function () {
     ]);
   });
 
-  databaseObject.createCollection("class", function (err, res) {
+  databaseObject.createCollection("turma", function (err, res) {
     if (err) throw err;
-    console.log("Collection class created!");
-    databaseObject.colletion("class").insertMany([
-      { name: "alpha", professor: "roberto", nameStudants: ["carlos"] },
-      { name: "beta", professor: "isaque", nameStudants: ["carlos", "pedro"] },
-      { name: "gama", professor: "roberto", nameStudants: ["pedro"] }
+    console.log("Collection turma created!");
+    databaseObject.collection("turma").insertMany([
+      { name: "alpha", professor: "roberto", 
+        listStudants: [{name: "carlos"}, {name: "pedro"}] },
+      { name: "beta", professor: "isaque", 
+        listStudants: [{name: "carlos"}, {name: "pedro"}] },
+      { name: "gama", professor: "roberto", 
+        listStudants: [{name: "carlos"}, {name: "pedro"}] }
     ]);
   });
 }

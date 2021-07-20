@@ -1,6 +1,6 @@
 import secret from '../model/safety/secretJWT.js';
 import jwt from 'jsonwebtoken';
-import database from '../config/database2.js'
+import database from '../services/conectdatabase.js'
 import { promisify } from 'util';
 import cryptPassword from '../model/safety/cryptPassword.js'
 import { BSONSymbol } from 'mongodb';
