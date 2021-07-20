@@ -17,7 +17,9 @@ userController.login = async function (req, res, next) {
   if(user.name === req.body.login || user.password === cryptpasswordUserLogin){
     const tokenCredential = jwt.sign({ role: user.role }, secret, {expiresIn: HOUR_IN_SECONDS});
     req.session.tokenCredential = tokenCredential;
-      return res.json({ auth: true, token: tokenCredential });
+    //res.cookie('token', tokenCredential);
+
+    return res.json({ auth: true, token: tokenCredential });
   }
   
   res.status(500).json({message: 'Login invalid!'});
