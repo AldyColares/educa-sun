@@ -2,6 +2,7 @@ import http from 'http';
 import express from 'express';
 import feedseeds from './services/feedseeds.js';
 import user from './routes/user.js';
+import turma from './routes/turma.js';
 import session from 'express-session';
 import dotenvSafe from 'dotenv-safe';
 
@@ -25,6 +26,8 @@ app.use(express.urlencoded({ extended: true }));
 feedseeds();
 
 user(app);
+turma(app);
+
 const server = http.createServer(app);
 server.listen(3000);
 console.log("Servidor escutando na porta 3000...")
