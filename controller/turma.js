@@ -1,5 +1,6 @@
 import database from '../services/conectdatabase.js'
 import objectfilter from '../model/filters/objectfilter.js';
+import studantByTurmaFilter from '../model/filters/studantByTurmasFilter.js'
 let turmaController = {}
 
 turmaController.insertStudantInTurma = async function (req, res, next) {
@@ -28,30 +29,22 @@ turmaController.insertStudantInTurma = async function (req, res, next) {
   }
 }
 
-
-
 turmaController.listTurmasByStudant = async function (req, res, next) {
   const body = req.body;
 
   try {
     const databaseObject = await database.connect();
-    const cursor = await databaseObject.collection("turma")
+    const result = await databaseObject.collection("turma")
       .find({
-        "listStudants.matriculation": { matriculation: 2566 }
-
-        // "listStudants": {
-        // "$elemMatch": {
-        // "name": "pedro"
-        // }
-        // }
+        listStudants: { $elemMatch: {matriculation: body.matriculation} }
       }).toArray();
-      
-    console.log(cursor);
-    return res.status(200).json({ cursor });
+    
+    const resultFilter = studantByTurmaFilter(result); 
+    return res.status(200).json({ resultFilter });
 
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "falid" });
+    return res.status(500).json({ message: "falid internal serve" });
   }
 }
 
@@ -74,6 +67,5 @@ turmaController.listStudandsByTurma = async function (req, res, next) {
     res.status(500).json({ message: 'error list studant by turma' });
   }
 }
-
 
 export default turmaController;
