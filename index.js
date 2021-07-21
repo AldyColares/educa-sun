@@ -4,14 +4,13 @@ import feedseeds from './services/feedseeds.js';
 import user from './routes/user.js';
 import turma from './routes/turma.js';
 import session from 'express-session';
-import dotenvSafe from 'dotenv-safe';
 
 const EXPIRE_DATE_IN_DAY = 60 * 60 * 1000 * 24; // 24 hours
-
+const sessionSecret = process.env.SESSIONSECRET;
 const app = express();
 
 app.use(session({
-    secret: 'dsfkasjdfsidfdfsdfsodfiuoidfif&*&#&',
+    secret: sessionSecret,
     saveUninitialized: true,
     resave: true,
     cookie: {

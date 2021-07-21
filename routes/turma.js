@@ -3,9 +3,9 @@ import professorAuthorization from '../model/middlewares/professorAuthorization.
 import studantAuthorization from '../model/middlewares/studantAuthorization.js'
 
 export default function (app) {
-  app.put('/insertstudantinturma', turma.insertStudantInTurma);
+  app.put('/insertstudantinturma',professorAuthorization, turma.insertStudantInTurma);
 
-  app.post('/listturmasbystudant', turma.listTurmasByStudant);
+  app.post('/listturmasbystudant',studantAuthorization, turma.listTurmasByStudant);
 
-  app.post('/liststudandsbyturma', turma.listStudandsByTurma);
+  app.post('/liststudandsbyturma',professorAuthorization, turma.listStudandsByTurma);
 }

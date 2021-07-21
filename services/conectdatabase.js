@@ -1,6 +1,8 @@
 import { MongoClient } from 'mongodb';
-//const url = process.env.URIMONGODB;
-const url = 'mongodb://localhost:27017/';
+
+const url = process.env.URIMONGODB,
+educaSun = process.env.DataBase;
+//const url = 'mongodb://localhost:27017/';
 
 export default {
   connect: async function () {
@@ -11,7 +13,7 @@ export default {
         if (err)
           reject(err);
         else {
-          connection = database.db("educaSun");
+          connection = database.db(educaSun);
           resolve();
         }
       });

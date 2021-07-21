@@ -1,4 +1,3 @@
-import secret from '../model/safety/secretJWT.js';
 import jwt from 'jsonwebtoken';
 import database from '../services/conectdatabase.js'
 import { promisify } from 'util';
@@ -7,24 +6,29 @@ import cryptPassword from '../model/safety/cryptPassword.js'
 const promiseCryptPassword = promisify(cryptPassword);
 const HOUR_IN_SECONDS = 3600;
 
-
 let userController = {}
 userController.login = async function (req, res, next) {
-  const databaseObject = await database.connect();
-  const user = await databaseObject.collection("user").findOne({ name: req.body.login });
-  if (!user) return res.status(401).json({ message: "login or password not found" })
+  try {
+    const databaseObject = await database.connect();
+    const user = await databaseObject.collection("user").findOne({ name: req.body.login });
+    if (!user) return res.status(401).json({ message: "login or password not found" })
 
-  const cryptpasswordUserLogin = await promiseCryptPassword(req.body.password);
+    const cryptpasswordUserLogin = await promiseCryptPassword(req.body.password);
 
-  if (user.name === req.body.login && user.password === cryptpasswordUserLogin) {
-    const tokenCredential = jwt.sign({ role: user.role }, secret, { expiresIn: HOUR_IN_SECONDS });
-    req.session.tokenCredential = tokenCredential;
-    //res.cookie('token', tokenCredential);
+    if (user.name === req.body.login && user.password === cryptpasswordUserLogin) {
+      const tokenCredential = jwt.sign({ role: user.role }, process.env.SECRETJWT,
+        { expiresIn: HOUR_IN_SECONDS });
+      req.session.tokenCredential = tokenCredential;
 
-    return res.json({ auth: true, token: tokenCredential });
+      return res.json({ auth: true, token: tokenCredential });
+    }
+
+    return res.status(401).json({ message: 'Login invalid!' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "falid register studant." })
   }
 
-  res.status(401).json({ message: 'Login invalid!' });
 }
 
 userController.logOut = function (req, res, next) {
@@ -49,14 +53,12 @@ userController.registerStudent = async function (req, res, next) {
         role: body.role
       }
     const result = await databaseObject.collection("user").insertOne(doc);
-    return res.status(200).json({ message: result });
+    return res.status(200).json({ message: "register successuful" });
   }
   catch (error) {
     console.error(error);
-    return res.status(400).json({message: "falid register studant."})
+    return res.status(500).json({ message: "falid register studant." })
   }
-  finally {
-    //await database.close();
-  }
+  
 }
 export default userController;

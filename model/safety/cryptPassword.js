@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
-const SALT_FACTOR = 10;
-import bcryptSalt from './bcryptSalt.js';
+const bcryptSalt = process.env.BCRYPTSALT;
+
 /**
  * Encrypt the users password. 
  * 

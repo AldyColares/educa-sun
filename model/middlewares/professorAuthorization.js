@@ -1,13 +1,11 @@
 import jwt from 'jsonwebtoken';
-import secret from '../safety/secretJWT.js';
 
 export default function (req, res, next) {
   const token = req.session.tokenCredential;
-  //const token = req.cookie.token;
   
   if (!token) return res.status(401).json({ auth: false, message: 'No token provided or expired.' });
 
-  jwt.verify(token, secret, function (err, decoded) {
+  jwt.verify(token, process.env.SECRETJWT, function (err, decoded) {
     if (err) { return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' }); }
 
     if (decoded.role === "professor") {
