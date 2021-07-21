@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import database from '../services/conectdatabase.js'
 import { promisify } from 'util';
 import cryptPassword from '../model/safety/cryptPassword.js'
-import { BSONSymbol } from 'mongodb';
+
 const promiseCryptPassword = promisify(cryptPassword);
 const HOUR_IN_SECONDS = 3600;
 
@@ -16,7 +16,7 @@ userController.login = async function (req, res, next) {
 
   const cryptpasswordUserLogin = await promiseCryptPassword(req.body.password);
 
-  if (user.name === req.body.login || user.password === cryptpasswordUserLogin) {
+  if (user.name === req.body.login && user.password === cryptpasswordUserLogin) {
     const tokenCredential = jwt.sign({ role: user.role }, secret, { expiresIn: HOUR_IN_SECONDS });
     req.session.tokenCredential = tokenCredential;
     //res.cookie('token', tokenCredential);
@@ -24,7 +24,7 @@ userController.login = async function (req, res, next) {
     return res.json({ auth: true, token: tokenCredential });
   }
 
-  res.status(500).json({ message: 'Login invalid!' });
+  res.status(401).json({ message: 'Login invalid!' });
 }
 
 userController.logOut = function (req, res, next) {
@@ -53,6 +53,7 @@ userController.registerStudent = async function (req, res, next) {
   }
   catch (error) {
     console.error(error);
+    return res.status(400).json({message: "falid register studant."})
   }
   finally {
     //await database.close();
