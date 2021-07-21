@@ -26,8 +26,21 @@ turmaController.insertStudantInTurma = async function (req, res, next) {
 
 
 
-turmaController.listTurmasByStudant = function (req, res, next) {
+turmaController.listTurmasByStudant = async function (req, res, next) {
+  const body = req.body;
+  const options = {
+    projection: { title: 1, imdb: 1 },
+  };
+  try {
+    const databaseObject = await database.connect();
+    const result = await databaseObject.collection("turma")
+      .find({ "listStudants.name": "carlos" });
+    return res.status(200).json({ result });
 
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "falid" });
+  }
 }
 
 turmaController.listStudandsByTurma = async function (req, res, next) {
@@ -39,12 +52,13 @@ turmaController.listStudandsByTurma = async function (req, res, next) {
     if (!body.filter) {
       const listStudants = result.listStudants;
       return res.status(200).json({ listStudants });
-    }else{
+    } else {
       const resultFilter = objectfilter(body.filter, result.listStudants);
       return res.status(200).json({ resultFilter });
     }
   } catch (error) {
     console.error(error);
+    res.status(500).json({ message: 'error list studant by turma' });
   }
 }
 

@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-//const url = process.env.URIMOONGODB;
+//const url = process.env.URIMONGODB;
 const url = 'mongodb://localhost:27017/';
 
 export default {
