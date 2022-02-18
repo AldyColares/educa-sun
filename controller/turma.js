@@ -25,7 +25,7 @@ turmaController.insertStudantInTurma = async function (req, res, next) {
 
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Error internal serve." });
+    return res.status(500).json({ message: "Server not responding." });
   }
 }
 
@@ -44,7 +44,7 @@ turmaController.listTurmasByStudant = async function (req, res, next) {
 
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "falid internal serve" });
+    return res.status(500).json({ message: "Server not responding." });
   }
 }
 
@@ -64,7 +64,7 @@ turmaController.listStudandsByTurma = async function (req, res, next) {
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'error list studant by turma' });
+    res.status(500).json({ message: 'Server not responding.' });
   }
 }
 

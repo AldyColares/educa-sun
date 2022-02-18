@@ -1,1 +1,0 @@
-export default "$2b$10$Cdke1aU38D1azg4ay/TKAO";

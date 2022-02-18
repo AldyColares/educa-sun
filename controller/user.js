@@ -26,7 +26,7 @@ userController.login = async function (req, res, next) {
     return res.status(401).json({ message: 'Login invalid!' });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "falid register studant." })
+    return res.status(500).json({ message: "Server not responding." })
   }
 
 }
@@ -57,7 +57,7 @@ userController.registerStudent = async function (req, res, next) {
   }
   catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "falid register studant." })
+    return res.status(500).json({ message: "Server not responding." })
   }
   
 }
